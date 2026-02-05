@@ -1,0 +1,36 @@
+
+-- Водитель
+CREATE TABLE driver (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Автомобиль
+CREATE TABLE auto (
+    id SERIAL PRIMARY KEY,
+    model VARCHAR(50) NOT NULL,
+    gos_number VARCHAR(8) UNIQUE NOT NULL
+);
+
+-- Склад
+CREATE TABLE sklad (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL
+);
+
+-- Груз
+CREATE TABLE gruz (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    sklad_id INT NOT NULL REFERENCES sklad(id)
+);
+
+-- Перевозка
+CREATE TABLE perevoz (
+    id SERIAL PRIMARY KEY,
+    auto_id INT NOT NULL REFERENCES auto(id),
+    gruz_id INT NOT NULL REFERENCES gruz(id),
+    sklad_id INT NOT NULL REFERENCES sklad(id),
+    date DATE NOT NULL
+);
