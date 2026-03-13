@@ -13,9 +13,20 @@ public class Main {
          final String password = "postgres";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-        print_all(connection);
-        System.out.println(printPerevoz(1,connection));
-        //print_all(connection);
+            //print_all(connection);
+            GruzDAO gruzDAO = new GruzDAO(connection);
+            Gruz gruz = new Gruz();
+            gruz.setName("Карнавальный костюм");
+            gruz.setSkladId(1);
+            gruzDAO.addGruz(gruz);
+            System.out.println("Inserted: " + gruz);
+            AutoDAO autoDAO = new AutoDAO(connection);
+            System.out.println("=== AUTO ===");
+            Auto auto = new Auto();
+            auto.setModel("Tesla");
+            auto.setGosNumber("E152AA-1");
+            autoDAO.addAuto(auto);
+            System.out.println("Inserted: " + auto);
 
         } catch (SQLException e) {
             e.printStackTrace();
